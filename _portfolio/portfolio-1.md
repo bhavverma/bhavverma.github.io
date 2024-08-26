@@ -1,5 +1,5 @@
 ---
-title: "[Portfolio item number 1](https://github.com/Bhav7/gpt2_colab_reimplementation)"
+title: "[Train GPT2 in Google Colab](https://github.com/Bhav7/gpt2_colab_reimplementation)"
 excerpt: "Short description of portfolio item number 1<br/><img src='/images/500x300.png'>"
 collection: portfolio
 ---
