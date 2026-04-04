@@ -3,10 +3,12 @@ title: "HiTaxon: a hierarchical ensemble framework for taxonomic classification 
 collection: publications
 category: manuscripts
 permalink: /publication/2024-02-01-paper-hitaxon
-excerpt: 'This paper introduces 1) a novel approach to reference data curation and 2) the use of hierarchical ensembles to improve taxonomic classification'
+excerpt: "Hierarchical ensembling and curated reference databases to improve taxonomic classification of short reads."
 date: 2024-02-01
-venue: 'Bioinformatics  Advances'
-citation: 'Verma, B. and Parkinson, J. (2024) HiTaxon: A hierarchical ensemble framework for taxonomic classification of short reads. Bioinformatics Advances. 4(1): vbae016.'
+venue: "Bioinformatics Advances"
+citation: "Verma, B. and Parkinson, J. (2024). HiTaxon: a hierarchical ensemble framework for taxonomic classification of short reads. Bioinformatics Advances, 4(1), vbae016."
+header:
+  teaser: publication-hitaxon.svg
 ---
 
-Abstract: Here, we introduce HiTaxon, an end-to-end hierarchical ensemble framework for taxonomic classification. HiTaxon facilitates data collection and processing, reference database construction and optional training of ML models to streamline ensemble creation. We show that databases created by HiTaxon improve the species-level performance of reference-dependent classifiers, while reducing their computational overhead. In addition, through exploring hierarchical methods for HiTaxon, we highlight that our custom approach to hierarchical ensembling improves species-level classification relative to traditional strategies. Finally, we demonstrate the improved performance of our hierarchical ensembles over current state-of-the-art classifiers in species classification using datasets comprised of either simulated or experimentally derived reads.
+This work introduces HiTaxon, an end-to-end framework for taxonomic classification that supports robust data curation, reference database construction, and optional machine-learning-based ensembling for improved species-level performance.
