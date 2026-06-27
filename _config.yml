@@ -11,7 +11,7 @@ locale                   : "en-US"
 title                    : "Bhav Verma"
 title_separator          : "-"
 name                     : &name "Bhav Verma"
-description              : &description "personal description"
+description              : &description "AI for healthcare, wearable sensing, and clinical decision support"
 url                      : https://bhavverma.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "academicpages/academicpages.github.io"
@@ -24,7 +24,7 @@ author:
   avatar           : "profile.png"
   name             : "Bhav Verma"
   pronouns         : # example: "she/her"  
-  bio              : "PhD student @ UofT"
+  bio              : "PhD student @ UofT · AI for healthcare"
   location         : "Toronto"
   employer         : 
   uri              : # URL
