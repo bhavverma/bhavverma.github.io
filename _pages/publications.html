@@ -9,11 +9,11 @@ author_profile: true
 
 <style>
   .publications-page {
-    --pub-accent: #3563e9;
-    --pub-ink: #1f2937;
-    --pub-muted: #6b7280;
-    --pub-border: #e5e7eb;
-    --pub-soft: #f8fafc;
+    --pub-accent: #7CFF00;
+    --pub-ink: #050505;
+    --pub-muted: #3f4a3f;
+    --pub-border: #111111;
+    --pub-soft: #0a0a0a;
   }
 
   .publications-hero {
@@ -22,8 +22,8 @@ author_profile: true
     border: 1px solid var(--pub-border);
     border-radius: 24px;
     background:
-      radial-gradient(circle at top right, rgba(53, 99, 233, 0.14), transparent 34%),
-      linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+      radial-gradient(circle at top right, rgba(124, 255, 0, 0.2), transparent 34%),
+      linear-gradient(135deg, #ffffff 0%, #f4fff0 100%);
     box-shadow: 0 20px 45px rgba(15, 23, 42, 0.06);
   }
 
@@ -46,7 +46,7 @@ author_profile: true
     height: 0.7rem;
     border-radius: 999px;
     background: var(--pub-accent);
-    box-shadow: 0 0 0 6px rgba(53, 99, 233, 0.12);
+    box-shadow: 0 0 0 6px rgba(124, 255, 0, 0.18);
   }
 
   .publications-hero h1 {
@@ -104,6 +104,7 @@ author_profile: true
     gap: 1.2rem;
     padding: 1.35rem;
     border: 1px solid var(--pub-border);
+    border-left: 8px solid var(--pub-accent);
     border-radius: 20px;
     background: #fff;
     transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
@@ -111,7 +112,7 @@ author_profile: true
 
   .publication-card:hover {
     transform: translateY(-2px);
-    border-color: rgba(53, 99, 233, 0.42);
+    border-color: var(--pub-accent);
     box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
   }
 
@@ -121,7 +122,7 @@ author_profile: true
     justify-content: center;
     padding: 0.55rem 0.75rem;
     border-radius: 999px;
-    background: var(--pub-soft);
+    background: #050505;
     color: var(--pub-accent);
     font-size: 0.9rem;
     font-weight: 800;
@@ -184,8 +185,8 @@ author_profile: true
 
   .publication-actions a:first-child {
     border-color: transparent;
-    background: var(--pub-accent);
-    color: #fff;
+    background: #050505;
+    color: var(--pub-accent);
   }
 
   .publication-actions a:hover,
@@ -236,7 +237,7 @@ author_profile: true
   <section class="publications-hero" aria-labelledby="publications-title">
     <div class="publications-eyebrow">Selected work</div>
     <h1 id="publications-title">Publications</h1>
-    <p>A clean, compact list of papers with quick links and citation details when needed.</p>
+    <p>A clean, compact list of papers with links to the published articles.</p>
   </section>
 
   {% if site.publication_category %}
@@ -256,15 +257,14 @@ author_profile: true
                 </time>
                 <div>
                   <h3 class="publication-title">
-                    <a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a>
+                    <a href="{{ post.paperurl | default: post.url }}">{{ post.title }}</a>
                   </h3>
                   <div class="publication-meta">
                     {% if post.venue %}<span class="publication-venue">{{ post.venue }}</span>{% endif %}
                     {% if post.category %}<span>{{ post.category | replace: "-", " " | capitalize }}</span>{% endif %}
                   </div>
                   <div class="publication-actions">
-                    <a href="{{ base_path }}{{ post.url }}">Details</a>
-                    {% if post.paperurl %}<a href="{{ post.paperurl }}">Paper</a>{% endif %}
+                    {% if post.paperurl %}<a href="{{ post.paperurl }}">Article</a>{% endif %}
                     {% if post.slidesurl %}<a href="{{ post.slidesurl }}">Slides</a>{% endif %}
                     {% if post.citation %}<button type="button" data-citation-toggle="citation-{{ category[0] }}-{{ forloop.index }}">Citation</button>{% endif %}
                   </div>
@@ -292,15 +292,14 @@ author_profile: true
             </time>
             <div>
               <h3 class="publication-title">
-                <a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a>
+                <a href="{{ post.paperurl | default: post.url }}">{{ post.title }}</a>
               </h3>
               <div class="publication-meta">
                 {% if post.venue %}<span class="publication-venue">{{ post.venue }}</span>{% endif %}
                 {% if post.category %}<span>{{ post.category | replace: "-", " " | capitalize }}</span>{% endif %}
               </div>
               <div class="publication-actions">
-                <a href="{{ base_path }}{{ post.url }}">Details</a>
-                {% if post.paperurl %}<a href="{{ post.paperurl }}">Paper</a>{% endif %}
+                {% if post.paperurl %}<a href="{{ post.paperurl }}">Article</a>{% endif %}
                 {% if post.slidesurl %}<a href="{{ post.slidesurl }}">Slides</a>{% endif %}
                 {% if post.citation %}<button type="button" data-citation-toggle="citation-{{ forloop.index }}">Citation</button>{% endif %}
               </div>
