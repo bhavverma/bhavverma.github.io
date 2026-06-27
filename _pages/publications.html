@@ -5,26 +5,327 @@ permalink: /publications/
 author_profile: true
 ---
 
-A curated list of selected manuscripts.
-
 {% include base_path %}
 
-{% if site.publication_category %}
-  {% for category in site.publication_category  %}
-    {% assign title_shown = false %}
-    {% for post in site.publications reversed %}
-      {% if post.category != category[0] %}
-        {% continue %}
+<style>
+  .publications-page {
+    --pub-accent: #3563e9;
+    --pub-ink: #1f2937;
+    --pub-muted: #6b7280;
+    --pub-border: #e5e7eb;
+    --pub-soft: #f8fafc;
+  }
+
+  .publications-hero {
+    margin: 0 0 2rem;
+    padding: 2rem;
+    border: 1px solid var(--pub-border);
+    border-radius: 24px;
+    background:
+      radial-gradient(circle at top right, rgba(53, 99, 233, 0.14), transparent 34%),
+      linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.06);
+  }
+
+  .publications-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.75rem;
+    color: var(--pub-accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .publications-eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 999px;
+    background: var(--pub-accent);
+    box-shadow: 0 0 0 6px rgba(53, 99, 233, 0.12);
+  }
+
+  .publications-hero h1 {
+    margin: 0;
+    color: var(--pub-ink);
+    font-size: clamp(2.1rem, 5vw, 3.8rem);
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+  }
+
+  .publications-hero p {
+    max-width: 42rem;
+    margin: 1rem 0 0;
+    color: var(--pub-muted);
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+
+  .publication-section {
+    margin: 2.25rem 0;
+  }
+
+  .publication-section__heading {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .publication-section__heading h2 {
+    margin: 0;
+    color: var(--pub-ink);
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  .publication-section__heading span {
+    flex: 1;
+    height: 1px;
+    background: var(--pub-border);
+  }
+
+  .publication-list {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .publication-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 5.25rem 1fr;
+    gap: 1.2rem;
+    padding: 1.35rem;
+    border: 1px solid var(--pub-border);
+    border-radius: 20px;
+    background: #fff;
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  }
+
+  .publication-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(53, 99, 233, 0.42);
+    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+  }
+
+  .publication-year {
+    align-self: start;
+    display: inline-flex;
+    justify-content: center;
+    padding: 0.55rem 0.75rem;
+    border-radius: 999px;
+    background: var(--pub-soft);
+    color: var(--pub-accent);
+    font-size: 0.9rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .publication-title {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+  }
+
+  .publication-title a {
+    color: var(--pub-ink);
+    text-decoration: none;
+  }
+
+  .publication-title a:hover {
+    color: var(--pub-accent);
+  }
+
+  .publication-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem 0.75rem;
+    margin-top: 0.55rem;
+    color: var(--pub-muted);
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .publication-venue {
+    color: var(--pub-ink);
+    font-weight: 700;
+  }
+
+  .publication-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+  }
+
+  .publication-actions a,
+  .publication-actions button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.42rem 0.72rem;
+    border: 1px solid var(--pub-border);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--pub-ink);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .publication-actions a:first-child {
+    border-color: transparent;
+    background: var(--pub-accent);
+    color: #fff;
+  }
+
+  .publication-actions a:hover,
+  .publication-actions button:hover {
+    border-color: var(--pub-accent);
+    color: var(--pub-accent);
+  }
+
+  .publication-actions a:first-child:hover {
+    color: #fff;
+    filter: brightness(0.92);
+  }
+
+  .publication-citation {
+    display: none;
+    margin: 0.9rem 0 0;
+    padding: 0.9rem;
+    border-left: 3px solid var(--pub-accent);
+    border-radius: 0 12px 12px 0;
+    background: var(--pub-soft);
+    color: var(--pub-muted);
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+
+  .publication-citation.is-visible {
+    display: block;
+  }
+
+  @media (max-width: 600px) {
+    .publications-hero {
+      padding: 1.35rem;
+    }
+
+    .publication-card {
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+      padding: 1.1rem;
+    }
+
+    .publication-year {
+      justify-self: start;
+    }
+  }
+</style>
+
+<div class="publications-page">
+  <section class="publications-hero" aria-labelledby="publications-title">
+    <div class="publications-eyebrow">Selected work</div>
+    <h1 id="publications-title">Publications</h1>
+    <p>A clean, compact list of papers with quick links and citation details when needed.</p>
+  </section>
+
+  {% if site.publication_category %}
+    {% for category in site.publication_category %}
+      {% assign section_posts = site.publications | where: "category", category[0] | reverse %}
+      {% if section_posts.size > 0 %}
+        <section class="publication-section" aria-labelledby="publication-section-{{ category[0] }}">
+          <div class="publication-section__heading">
+            <h2 id="publication-section-{{ category[0] }}">{{ category[1].title }}</h2>
+            <span aria-hidden="true"></span>
+          </div>
+          <ol class="publication-list">
+            {% for post in section_posts %}
+              <li class="publication-card">
+                <time class="publication-year" datetime="{{ post.date | default: '1900-01-01' | date_to_xmlschema }}">
+                  {{ post.date | default: '1900-01-01' | date: "%Y" }}
+                </time>
+                <div>
+                  <h3 class="publication-title">
+                    <a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a>
+                  </h3>
+                  <div class="publication-meta">
+                    {% if post.venue %}<span class="publication-venue">{{ post.venue }}</span>{% endif %}
+                    {% if post.category %}<span>{{ post.category | replace: "-", " " | capitalize }}</span>{% endif %}
+                  </div>
+                  <div class="publication-actions">
+                    <a href="{{ base_path }}{{ post.url }}">Details</a>
+                    {% if post.paperurl %}<a href="{{ post.paperurl }}">Paper</a>{% endif %}
+                    {% if post.slidesurl %}<a href="{{ post.slidesurl }}">Slides</a>{% endif %}
+                    {% if post.citation %}<button type="button" data-citation-toggle="citation-{{ category[0] }}-{{ forloop.index }}">Citation</button>{% endif %}
+                  </div>
+                  {% if post.citation %}
+                    <p class="publication-citation" id="citation-{{ category[0] }}-{{ forloop.index }}">{{ post.citation }}</p>
+                  {% endif %}
+                </div>
+              </li>
+            {% endfor %}
+          </ol>
+        </section>
       {% endif %}
-      {% unless title_shown %}
-        <h2>{{ category[1].title }}</h2><hr />
-        {% assign title_shown = true %}
-      {% endunless %}
-      {% include archive-single.html type="grid" %}
     {% endfor %}
-  {% endfor %}
-{% else %}
-  {% for post in site.publications reversed %}
-    {% include archive-single.html type="grid" %}
-  {% endfor %}
-{% endif %}
+  {% else %}
+    <section class="publication-section" aria-labelledby="publication-section-all">
+      <div class="publication-section__heading">
+        <h2 id="publication-section-all">All publications</h2>
+        <span aria-hidden="true"></span>
+      </div>
+      <ol class="publication-list">
+        {% for post in site.publications reversed %}
+          <li class="publication-card">
+            <time class="publication-year" datetime="{{ post.date | default: '1900-01-01' | date_to_xmlschema }}">
+              {{ post.date | default: '1900-01-01' | date: "%Y" }}
+            </time>
+            <div>
+              <h3 class="publication-title">
+                <a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a>
+              </h3>
+              <div class="publication-meta">
+                {% if post.venue %}<span class="publication-venue">{{ post.venue }}</span>{% endif %}
+                {% if post.category %}<span>{{ post.category | replace: "-", " " | capitalize }}</span>{% endif %}
+              </div>
+              <div class="publication-actions">
+                <a href="{{ base_path }}{{ post.url }}">Details</a>
+                {% if post.paperurl %}<a href="{{ post.paperurl }}">Paper</a>{% endif %}
+                {% if post.slidesurl %}<a href="{{ post.slidesurl }}">Slides</a>{% endif %}
+                {% if post.citation %}<button type="button" data-citation-toggle="citation-{{ forloop.index }}">Citation</button>{% endif %}
+              </div>
+              {% if post.citation %}
+                <p class="publication-citation" id="citation-{{ forloop.index }}">{{ post.citation }}</p>
+              {% endif %}
+            </div>
+          </li>
+        {% endfor %}
+      </ol>
+    </section>
+  {% endif %}
+</div>
+
+<script>
+  document.querySelectorAll('[data-citation-toggle]').forEach(function (toggle) {
+    toggle.addEventListener('click', function () {
+      var citation = document.getElementById(toggle.getAttribute('data-citation-toggle'));
+
+      if (!citation) {
+        return;
+      }
+
+      citation.classList.toggle('is-visible');
+      toggle.textContent = citation.classList.contains('is-visible') ? 'Hide citation' : 'Citation';
+    });
+  });
+</script>
